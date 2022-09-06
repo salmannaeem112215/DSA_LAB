@@ -55,14 +55,13 @@ char menu(){
     cout<<"3. Remove Element"<<endl;
     cout<<"4. Update Element"<<endl;
     cout<<"5. Search Element"<<endl;
-    cout<<"6. Element At Index"<<endl;
     cout<<"0. Quit"<<endl;
     // Taking Input
     cout<<"Choice =>";
     choice = getche();
     cout<<endl;
     // In case of wrong input
-    while(choice < '0' || choice >'6'){
+    while(choice < '0' || choice >'5'){
         cout<<"Invalid Choice !"<<endl;
         cout<<"Choice =>";
         choice = getche();
