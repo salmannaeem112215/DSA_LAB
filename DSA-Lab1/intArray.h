@@ -295,18 +295,20 @@ void IntArray::update()
             }
             cout << endl;
 
-            cout << "Do you Want to remove it ? (y/n) : ";
+            cout << "Do you Want to Update it ? (y/n) : ";
             choice = getche();
             cout << endl;
 
             while (!(choice == 'y' || choice == 'Y' || choice == 'n' || choice == 'N'))
             {
-                cout << "Do you Want to remove it ? (y/n) : ";
+                cout << "Do you Want to Update it ? (y/n) : ";
                 choice = getche();
                 cout << endl;
             }
             // Replacing Specifc Elements values 
             if(choice=='y' || choice=='Y'){
+                cout<<"Enter Value : ";
+                cin>>value;
                 for (int i =0 ; i<no_of_index; i++ ){
                     arr[element_index[i]]=value;
                 }
