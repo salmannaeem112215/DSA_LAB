@@ -35,11 +35,12 @@ IntArray::IntArray(int *sec_arr, int size)
 {
     if (size > 0)
     {
-    this->size =size;
-    arr= new int[size];
-    for(int i=0 ;i<size ; i++){
-        arr[i]=sec_arr[i];
-    }
+        this->size = size;
+        arr = new int[size];
+        for (int i = 0; i < size; i++)
+        {
+            arr[i] = sec_arr[i];
+        }
     }
     else
     {
@@ -170,35 +171,39 @@ void IntArray::remove()
         {
             int temp_size = size - no_of_index;
             int *temp_arr = new int[temp_size];
-            int element_index_counter=0;
+            int element_index_counter = 0;
 
             for (int i = 0; i < size; i++)
             {
                 if (i == element_index[element_index_counter])
                 {
                     element_index_counter++;
-                    cout<<"Increadees"<<endl;
+                    cout << "Increadees" << endl;
                 }
-                else{
-                temp_arr[i-element_index_counter] = arr[i];
-                cout<<i-element_index_counter <<" ";
+                else
+                {
+                    temp_arr[i - element_index_counter] = arr[i];
+                    cout << i - element_index_counter << " ";
                 }
             }
-            cout<<endl;
-            
-            //delte this
-            for(int i=0 ;i<size ;i++){
-                cout<<arr[i]<<" ";
+            cout << endl;
+
+            // delte this
+            for (int i = 0; i < size; i++)
+            {
+                cout << arr[i] << " ";
             }
-            cout<<endl;
-            for(int i=0 ;i<temp_size ;i++){
-                cout<<temp_arr[i]<<" ";
+            cout << endl;
+            for (int i = 0; i < temp_size; i++)
+            {
+                cout << temp_arr[i] << " ";
             }
-            cout<<endl;
-            for(int i=0 ;i<no_of_index ;i++){
-                cout<<element_index[i]<<" ";
+            cout << endl;
+            for (int i = 0; i < no_of_index; i++)
+            {
+                cout << element_index[i] << " ";
             }
-            cout<<endl;
+            cout << endl;
             getch();
 
             delete[] element_index;
@@ -217,7 +222,194 @@ void IntArray::remove()
         break;
     }
 }
+void IntArray::update()
+{
 
+    char choice;
+    int index = -1;
+    int value = 0;
+    int no_of_index = 0;
+    int *element_index = new int[size];
+
+    cout << "Update Element using : " << endl;
+    cout << "1. Index - use for one " << endl;
+    cout << "2. Value - use for many " << endl;
+    cout << "0. Cancel " << endl;
+
+    cout << "Choice =>";
+    choice = getche();
+    cout << endl;
+
+    while (choice < '0' || choice > '2')
+    {
+        cout << "Invalid Choice !" << endl;
+        cout << "Choice =>";
+        choice = getche();
+        cout << endl;
+    }
+
+    switch (choice)
+    {
+    case '0':
+        break;
+    case '1':
+        cout << "Entered Index Must be between ( 0 - " << size - 1 << " ) : " << endl;
+        cout << "Enter Index : ";
+        cin >> index;
+
+        while (index < 0 || index >= size)
+        {
+            cout << "Invalid Index Entered : ";
+            cout << "Re-enter Index : ";
+            cin >> index;
+        }
+
+        cout << "arr [" << index << "] : " << arr[index] << endl;
+        cout << "To Update, Enter Value : ";
+        cin >> value;
+
+        arr[index] = value;
+
+        break;
+    case '2':
+        char choice;
+        cout << "Enter Value : ";
+        cin >> value;
+        for (int i = 0; i < size; i++)
+        {
+            if (value == arr[i])
+            {
+                element_index[no_of_index] = i;
+                no_of_index++;
+            }
+        }
+
+        if (no_of_index)
+        {
+
+            cout << "Total Elements Found : " << no_of_index << endl;
+            cout << "At Index : ";
+            for (int i = 0; i < no_of_index; i++)
+            {
+                cout << element_index[i] << " ";
+            }
+            cout << endl;
+
+            cout << "Do you Want to remove it ? (y/n) : ";
+            choice = getche();
+            cout << endl;
+
+            while (!(choice == 'y' || choice == 'Y' || choice == 'n' || choice == 'N'))
+            {
+                cout << "Do you Want to remove it ? (y/n) : ";
+                choice = getche();
+                cout << endl;
+            }
+            // Replacing Specifc Elements values 
+            if(choice=='y' || choice=='Y'){
+                for (int i =0 ; i<no_of_index; i++ ){
+                    arr[element_index[i]]=value;
+                }
+            }
+        }
+        else
+        {
+            cout << "No Element Find in Array having " << value << " value" << endl;
+            getch();
+        }
+
+        break;
+
+    default:
+        break;
+    }
+}
+void IntArray::search()
+{
+
+    char choice;
+    int index = -1;
+    int value = 0;
+    int no_of_index = 0;
+    int *element_index = new int[size];
+
+    cout << "Search Element using : " << endl;
+    cout << "1. Index - use for one " << endl;
+    cout << "2. Value - use for many " << endl;
+    cout << "0. Cancel " << endl;
+
+    cout << "Choice =>";
+    choice = getche();
+    cout << endl;
+
+    while (choice < '0' || choice > '2')
+    {
+        cout << "Invalid Choice !" << endl;
+        cout << "Choice =>";
+        choice = getche();
+        cout << endl;
+    }
+
+    switch (choice)
+    {
+    case '0':
+
+        break;
+    case '1':
+        cout << "Entered Index Must be between ( 0 - " << size - 1 << " ) : " << endl;
+        cout << "Enter Index : ";
+        cin >> index;
+
+        while (index < 0 || index >= size)
+        {
+            cout << "Invalid Index Entered : ";
+            cout << "Re-enter Index : ";
+            cin >> index;
+        }
+
+        cout<<"At Index "<<index <<" Values is "<<value<<endl;
+        cout<<"Press Any Key to Continue ";
+            getch();
+
+        break;
+    case '2':
+        char choice;
+        cout << "Enter Value : ";
+        cin >> value;
+        for (int i = 0; i < size; i++)
+        {
+            if (value == arr[i])
+            {
+                element_index[no_of_index] = i;
+                no_of_index++;
+            }
+        }
+
+        if (no_of_index)
+        {
+
+            cout << "Total Elements Found : " << no_of_index << endl;
+            cout << "At Index : ";
+            for (int i = 0; i < no_of_index; i++)
+            {
+                cout << element_index[i] << " ";
+            }
+            cout << endl;
+            cout<<"Press Any Key to Continue ";
+            getch();
+        }
+        else
+        {
+            cout << "No Element Found in Array having " << value << " value" << endl;
+            getch();
+        }
+
+        break;
+
+    default:
+        break;
+    }
+}
 // Member Utility Functions
 void IntArray::display()
 {

@@ -32,6 +32,12 @@ int main(){
     case '3':
         arr.remove();
         break;
+    case '4':
+        arr.update();
+        break;
+    case '5':
+        arr.search();
+        break;
     
     default:
         break;
