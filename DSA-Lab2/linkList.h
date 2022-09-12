@@ -133,6 +133,65 @@ void LinkList::insertAfter(int val, int val_to_insert_after){
     }
 }
 
+void LinkList::sort_ascending(){
+    if(head==NULL){
+        cout<<"List is Empty"<<endl;
+    }
+    else{
+        Node* outer_temp = head;
+        Node* outer_temp_priv = NULL;
+        Node* min_Node;
+        Node* min_Node_priv;
+        Node* inner_temp ;
+        Node* inner_temp_priv ;
+        int min=head->data;
+
+        while (outer_temp != NULL)
+        {
+            min_Node = outer_temp;
+            min_Node_priv = outer_temp_priv; 
+            min = min_Node->data;
+
+            inner_temp = outer_temp;
+            inner_temp_priv = outer_temp_priv;
+            while (inner_temp!=NULL){
+                cout<<(min>inner_temp->data)<<"\t"<<min<<"\t"<<inner_temp->data<<endl; 
+                if(min>inner_temp->data){
+                    min=inner_temp->data;
+                    min_Node=inner_temp;
+                    min_Node_priv=inner_temp_priv;
+                }
+                inner_temp_priv=inner_temp;
+                inner_temp=inner_temp->next;
+            }
+            //changing plaaces of two nodes;
+            //In case nothing is null
+            if(min_Node==outer_temp){}
+            else{
+                cout<<min_Node->data<<endl;
+                cout<<outer_temp->data<<endl;
+            if(min_Node_priv==NULL){
+                cout<<"min are numm"<<endl;
+            }else{
+            min_Node_priv->next =outer_temp;
+            }
+            if(outer_temp_priv==NULL){
+                cout<<"Outer are numm"<<endl;
+            }
+            else{
+            outer_temp_priv->next = min_Node;
+            }
+            Node* temp = min_Node->next;
+            min_Node->next = outer_temp->next;
+            outer_temp->next = temp;
+            }
+                   outer_temp_priv=outer_temp;
+            outer_temp = outer_temp->next;
+
+        }   
+    }
+}
+
 void LinkList::display()
 {
     if (head == NULL)
