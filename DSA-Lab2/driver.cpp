@@ -22,7 +22,7 @@ int main(){
     // L.insertAfter(2,5);
     // L.display();
 
-    L.InsertAtEnd(1);
+    // L.InsertAtEnd(9);
     L.InsertAtEnd(2);
     L.InsertAtEnd(6);
     L.InsertAtEnd(5);
@@ -34,5 +34,6 @@ int main(){
 
     L.sort_ascending();
     L.display();
+
 
 }

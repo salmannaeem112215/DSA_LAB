@@ -72,16 +72,18 @@ void LinkList::update(int val_to_update, int val_after_update)
             if (temp->data == val_to_update)
             {
                 temp->data = val_after_update;
-                found =false;
+                found = false;
             }
             temp = temp->next;
         }
-        if(!found){
-            cout<<"Value Not Found in Linked List "<<endl;
+        if (!found)
+        {
+            cout << "Value Not Found in Linked List " << endl;
         }
     }
 }
-void LinkList::search(int val){
+void LinkList::search(int val)
+{
     if (head == NULL)
     {
         cout << "No Item in List " << endl;
@@ -89,26 +91,30 @@ void LinkList::search(int val){
     else
     {
         Node *temp = head;
-        int no_of_times=0;
+        int no_of_times = 0;
         while (temp != NULL)
         {
-           if(temp->data==val){
-            no_of_times++;
-           }
+            if (temp->data == val)
+            {
+                no_of_times++;
+            }
             temp = temp->next;
         }
-        if(no_of_times){
-            cout<<"Value find "<<no_of_times
-                <<((no_of_times==1)?" time":"times")
-                <<" in List "<<endl;
+        if (no_of_times)
+        {
+            cout << "Value find " << no_of_times
+                 << ((no_of_times == 1) ? " time" : "times")
+                 << " in List " << endl;
         }
-        else{
-            cout<<"Value not found "<<endl;
+        else
+        {
+            cout << "Value not found " << endl;
         }
     }
 }
 
-void LinkList::insertAfter(int val, int val_to_insert_after){
+void LinkList::insertAfter(int val, int val_to_insert_after)
+{
     if (head == NULL)
     {
         cout << "No Item in List " << endl;
@@ -118,77 +124,103 @@ void LinkList::insertAfter(int val, int val_to_insert_after){
         Node *temp = head;
         while (temp != NULL)
         {
-           if(temp->data == val ){
-            //creating
-            Node *myNode= new Node(val_to_insert_after);
-            //Inserting 
-            myNode->next = temp->next;
-            temp->next = myNode;
-            //skipping the inserted Node
-            temp=myNode;
-           }
+            if (temp->data == val)
+            {
+                // creating
+                Node *myNode = new Node(val_to_insert_after);
+                // Inserting
+                myNode->next = temp->next;
+                temp->next = myNode;
+                // skipping the inserted Node
+                temp = myNode;
+            }
             temp = temp->next;
         }
-        
     }
 }
 
-void LinkList::sort_ascending(){
-    if(head==NULL){
-        cout<<"List is Empty"<<endl;
+void LinkList::sort_ascending()
+{
+    if (head == NULL)
+    {
+        cout << "List is Empty" << endl;
     }
-    else{
-        Node* outer_temp = head;
-        Node* outer_temp_priv = NULL;
-        Node* min_Node;
-        Node* min_Node_priv;
-        Node* inner_temp ;
-        Node* inner_temp_priv ;
-        int min=head->data;
+    else
+    {
+        Node *outer_temp = head;
+        Node *outer_temp_priv = NULL;
+        // Node *outer_temp_priv = head;
+        Node *min_Node;
+        Node *min_Node_priv;
+        Node *inner_temp;
+        Node *inner_temp_priv;
+        int min = head->data;
 
         while (outer_temp != NULL)
         {
             min_Node = outer_temp;
-            min_Node_priv = outer_temp_priv; 
+            min_Node_priv = outer_temp_priv;
             min = min_Node->data;
 
             inner_temp = outer_temp;
             inner_temp_priv = outer_temp_priv;
-            while (inner_temp!=NULL){
-                cout<<(min>inner_temp->data)<<"\t"<<min<<"\t"<<inner_temp->data<<endl; 
-                if(min>inner_temp->data){
-                    min=inner_temp->data;
-                    min_Node=inner_temp;
-                    min_Node_priv=inner_temp_priv;
+            while (inner_temp != NULL)
+            {
+                cout << (min > inner_temp->data) << "\t" << min << "\t" << inner_temp->data << endl;
+                if (min > inner_temp->data)
+                {
+                    min = inner_temp->data;
+                    min_Node = inner_temp;
+                    min_Node_priv = inner_temp_priv;
                 }
-                inner_temp_priv=inner_temp;
-                inner_temp=inner_temp->next;
+                inner_temp_priv = inner_temp;
+                inner_temp = inner_temp->next;
             }
-            //changing plaaces of two nodes;
-            //In case nothing is null
-            if(min_Node==outer_temp){}
-            else{
-                cout<<min_Node->data<<endl;
-                cout<<outer_temp->data<<endl;
-            if(min_Node_priv==NULL){
-                cout<<"min are numm"<<endl;
-            }else{
-            min_Node_priv->next =outer_temp;
+            // changing plaaces of two nodes;
+            // In case nothing is null
+            if (min_Node == outer_temp)
+            {
             }
-            if(outer_temp_priv==NULL){
-                cout<<"Outer are numm"<<endl;
-            }
-            else{
-            outer_temp_priv->next = min_Node;
-            }
-            Node* temp = min_Node->next;
-            min_Node->next = outer_temp->next;
-            outer_temp->next = temp;
-            }
-                   outer_temp_priv=outer_temp;
-            outer_temp = outer_temp->next;
+            else
+            {
+                cout << min_Node->data << endl;
+                cout << outer_temp->data << endl;
 
-        }   
+                if (outer_temp_priv == NULL)
+                {
+                    cout << "Outer are numm -Solveed This issue" << endl;
+                     cout<<"Before : ";
+                    head=min_Node;
+                    cout<<min_Node_priv->data<<"\t"<<min_Node->data<<"\t"
+                        <<"\t"<<outer_temp->data<<endl;
+                    min_Node_priv->next = outer_temp;
+                    head=min_Node;
+                    Node *temp = min_Node->next;
+                    min_Node->next = outer_temp->next;
+                    outer_temp->next = temp;
+                     cout<<"After : ";
+                    cout<<min_Node_priv->data<<"\t"<<min_Node->data<<"\t"
+                        <<"\t"<<outer_temp->data<<endl;
+                }
+                else
+                {
+                    cout<<"Before : ";
+                    cout<<min_Node_priv->data<<"\t"<<min_Node->data<<"\t"
+                        <<outer_temp_priv->data<<"\t"<<outer_temp->data<<endl;
+                    min_Node_priv->next = outer_temp;
+                    outer_temp_priv->next = min_Node;
+                    Node *temp = min_Node->next;
+                    min_Node->next = outer_temp->next;
+                    outer_temp->next = temp;
+                    cout<<"After : ";
+                    cout<<min_Node_priv->data<<"\t"<<min_Node->data<<"\t"
+                        <<outer_temp_priv->data<<"\t"<<outer_temp->data<<endl;
+                }
+
+            }
+            outer_temp_priv = outer_temp;
+            outer_temp = outer_temp->next;
+        }
     }
 }
 
