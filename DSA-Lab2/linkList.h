@@ -2,6 +2,7 @@
 #define LINKLIST_H
 
 #include <iostream>
+#include<conio.h>
 #include "Node.h"
 using namespace std;
 
@@ -9,20 +10,22 @@ class LinkList
 {
 public:
     Node *head;
-    Node *tail;
 
     LinkList()
     {
         head = NULL;
-        tail = NULL;
     }
 
     void InsertAtStart(int val);
     void InsertAtEnd(int val);
+    void insertAfter(int val_pos, int val);
+    void DELETE(int val);
+    void deleteAtStart();
+    void deleteAtEnd();
+    void deleteByPosition(int pos);
     void update(int val_to_update, int val_after_update);
     void display();
     void search(int val);
-    void insertAfter(int val, int val_to_insert_after);
     void sort_ascending();
     void sort_dscending();
 };
@@ -33,7 +36,6 @@ void LinkList::InsertAtStart(int val)
     if (head == NULL)
     {
         head = myNode;
-        tail = myNode;
     }
     else
     {
@@ -48,14 +50,140 @@ void LinkList::InsertAtEnd(int val)
     if (head == NULL)
     {
         head = myNode;
-        tail = myNode;
     }
     else
-    {
-        tail->next = myNode;
-        tail = myNode;
+    {   
+        Node * temp = head;
+        while(temp->next != NULL){
+            temp=temp->next;
+        }
+        temp->next = myNode;
+
     }
 }
+void LinkList::deleteAtStart(){
+    if(head==NULL){
+        cout<<"List Empty";
+    }
+    else{
+        Node* temp = head;
+        head=head->next;
+        delete temp;
+    }
+}
+void LinkList::deleteAtEnd(){
+    if(head==NULL){
+        cout<<"List Empty";
+    }
+    else
+    {   
+        Node* temp = head;
+        if(head->next == NULL){
+            deleteAtStart();
+        }
+        else{
+
+        while(temp->next->next != NULL){
+            temp=temp->next;
+        }
+        delete temp->next;
+        temp->next = NULL;
+        }
+
+    }
+
+}
+void LinkList::deleteByPosition(int pos){
+    if(head==NULL){
+        cout<<"List Empty";
+    }
+    else
+    {   
+        Node* temp = head;
+        int count;
+        bool found =false;
+        if(pos==0){
+            deleteAtStart();
+        }
+        else{
+
+        while(temp->next->next!= NULL ){
+            if(count+1==pos){
+                found=true;
+                break;
+            }
+            count++;
+            temp=temp->next;
+        }
+        Node* temp_a = temp->next->next;
+        delete temp->next;
+        temp->next = temp_a;
+        }
+
+    }
+    if(pos==0){
+        deleteAtStart();
+    }
+    else{
+        int count=0; 
+        bool remove =false;
+        Node* temp =head;
+        while (temp != NULL)
+        {
+            if(pos==count){
+                remove= true;
+            }
+
+            temp=temp->next;
+        }
+        
+    }
+}
+void LinkList::DELETE(int val) {
+		if (head == NULL) {
+			cout << "List is Empty , value can't be Delete" << endl;
+		}
+		else {
+			bool found = false;
+			Node* temp_curr = head;
+			Node* temp_priv = NULL;
+
+			while (temp_curr != NULL) {
+                if(temp_curr->data==val && temp_curr==head){
+                cout<<"1";
+                deleteAtStart();
+                //to Stay the same
+                temp_priv = temp_priv;
+                temp_curr = head;
+                // break;
+                }
+
+                else if (temp_curr->data == val && temp_curr!= head) {
+                cout<<"2";
+                cout<<"Second Exceuted"<<endl;
+					found = true;
+					temp_priv->next = temp_curr->next;
+					delete	temp_curr;
+
+                //to Stay the same
+                    temp_priv = temp_priv;
+                    temp_curr = temp_priv->next;
+                    // break;
+				}
+
+                else{
+                cout<<"3";
+				temp_priv = temp_curr;
+				temp_curr = temp_curr->next;
+                }
+
+			}
+
+			if (!found) {
+				cout << "Node not found with value " << val << endl;
+			}
+		}
+	}
 
 void LinkList::update(int val_to_update, int val_after_update)
 {
@@ -113,7 +241,7 @@ void LinkList::search(int val)
     }
 }
 
-void LinkList::insertAfter(int val, int val_to_insert_after)
+void LinkList::insertAfter(int val_pos, int val)
 {
     if (head == NULL)
     {
@@ -124,10 +252,10 @@ void LinkList::insertAfter(int val, int val_to_insert_after)
         Node *temp = head;
         while (temp != NULL)
         {
-            if (temp->data == val)
+            if (temp->data == val_pos)
             {
                 // creating
-                Node *myNode = new Node(val_to_insert_after);
+                Node *myNode = new Node(val);
                 // Inserting
                 myNode->next = temp->next;
                 temp->next = myNode;
@@ -147,79 +275,67 @@ void LinkList::sort_ascending()
     }
     else
     {
-        Node *outer_temp = head;
-        Node *outer_temp_priv = NULL;
-        // Node *outer_temp_priv = head;
-        Node *min_Node;
-        Node *min_Node_priv;
-        Node *inner_temp;
-        Node *inner_temp_priv;
-        int min = head->data;
-
-        while (outer_temp != NULL)
+        Node *outer = head;
+        Node *min;
+        int min_val ;
+        while (outer != NULL)
         {
-            min_Node = outer_temp;
-            min_Node_priv = outer_temp_priv;
-            min = min_Node->data;
-
-            inner_temp = outer_temp;
-            inner_temp_priv = outer_temp_priv;
-            while (inner_temp != NULL)
+            min = outer;
+            min_val=outer->data;
+            Node* inner= outer;
+            while (inner!= NULL)
             {
-                cout << (min > inner_temp->data) << "\t" << min << "\t" << inner_temp->data << endl;
-                if (min > inner_temp->data)
-                {
-                    min = inner_temp->data;
-                    min_Node = inner_temp;
-                    min_Node_priv = inner_temp_priv;
-                }
-                inner_temp_priv = inner_temp;
-                inner_temp = inner_temp->next;
-            }
-            // changing plaaces of two nodes;
-            // In case nothing is null
-            if (min_Node == outer_temp)
-            {
-            }
-            else
-            {
-                cout << min_Node->data << endl;
-                cout << outer_temp->data << endl;
 
-                if (outer_temp_priv == NULL)
-                {
-                    cout << "Outer are numm -Solveed This issue" << endl;
-                     cout<<"Before : ";
-                    head=min_Node;
-                    cout<<min_Node_priv->data<<"\t"<<min_Node->data<<"\t"
-                        <<"\t"<<outer_temp->data<<endl;
-                    min_Node_priv->next = outer_temp;
-                    head=min_Node;
-                    Node *temp = min_Node->next;
-                    min_Node->next = outer_temp->next;
-                    outer_temp->next = temp;
-                     cout<<"After : ";
-                    cout<<min_Node_priv->data<<"\t"<<min_Node->data<<"\t"
-                        <<"\t"<<outer_temp->data<<endl;
+                if(min_val>inner->data){
+                    min_val= inner->data;
+                    min=inner;
                 }
-                else
-                {
-                    cout<<"Before : ";
-                    cout<<min_Node_priv->data<<"\t"<<min_Node->data<<"\t"
-                        <<outer_temp_priv->data<<"\t"<<outer_temp->data<<endl;
-                    min_Node_priv->next = outer_temp;
-                    outer_temp_priv->next = min_Node;
-                    Node *temp = min_Node->next;
-                    min_Node->next = outer_temp->next;
-                    outer_temp->next = temp;
-                    cout<<"After : ";
-                    cout<<min_Node_priv->data<<"\t"<<min_Node->data<<"\t"
-                        <<outer_temp_priv->data<<"\t"<<outer_temp->data<<endl;
-                }
-
+                inner=inner->next;
             }
-            outer_temp_priv = outer_temp;
-            outer_temp = outer_temp->next;
+
+            // Swap value;
+            min->data = outer->data;
+            outer->data = min_val;
+
+            
+            // Updating Address for next Node Interation
+            outer = outer->next;
+        }
+    }
+}
+void LinkList::sort_dscending()
+{
+    if (head == NULL)
+    {
+        cout << "List is Empty" << endl;
+    }
+    else
+    {
+        Node *outer = head;
+        Node *max;
+        int max_val ;
+        while (outer != NULL)
+        {
+            max = outer;
+            max_val=outer->data;
+            Node* inner= outer;
+            while (inner!= NULL)
+            {
+
+                if(max_val<inner->data){
+                    max_val= inner->data;
+                    max=inner;
+                }
+                inner=inner->next;
+            }
+
+            // Swap value;
+            max->data = outer->data;
+            outer->data = max_val;
+
+            
+            // Updating Address for next Node Interation
+            outer = outer->next;
         }
     }
 }
@@ -233,6 +349,7 @@ void LinkList::display()
     else
     {
         Node *temp = head;
+        cout<<"List : ";
         while (temp != NULL)
         {
             cout << temp->data << "\t";
@@ -240,7 +357,6 @@ void LinkList::display()
         }
         cout << endl;
     }
-    cout << endl;
 }
 
 #endif
