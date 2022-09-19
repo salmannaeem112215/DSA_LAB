@@ -1,0 +1,36 @@
+void LinkList::sort_dscending()
+{
+    if (head == NULL)
+    {
+        cout << "List is Empty" << endl;
+    }
+    else
+    {
+        Node *outer = head;
+        Node *max;
+        int max_val;
+        while (outer != NULL)
+        {
+            max = outer;
+            max_val = outer->data;
+            Node *inner = outer;
+            while (inner != NULL)
+            {
+
+                if (max_val < inner->data)
+                {
+                    max_val = inner->data;
+                    max = inner;
+                }
+                inner = inner->next;
+            }
+
+            // Swap value;
+            max->data = outer->data;
+            outer->data = max_val;
+
+            // Updating Address for next Node Interation
+            outer = outer->next;
+        }
+    }
+}

@@ -11,7 +11,7 @@ int main(){
     int val;
     int pos;
     bool flag = true;
-    int no_of_options=11;
+    int no_of_options=12;
     string options[]= {
     "Quit",
     "Insert At Start",
@@ -32,10 +32,10 @@ int main(){
     //Creating LinkedList
     LinkList L;
     // Some Dummy Data to perform Actions eadsyly
-    L.InsertAtStart(1);
-    L.InsertAtStart(2);
-    L.InsertAtStart(3);
-    L.InsertAtStart(4);
+    // L.InsertAtStart(1);
+    // L.InsertAtStart(2);
+    // L.InsertAtStart(3);
+    // L.InsertAtStart(4);
     L.InsertAtEnd(5);
     L.InsertAtEnd(6);
     L.InsertAtEnd(8);
@@ -113,7 +113,8 @@ int main(){
             
             break;
         case 12:
-            L.sort_dscending();
+            // L.sort_dscending();
+            L.sortDes();
             
             break;
         
